@@ -1,4 +1,4 @@
-package com.scotia.viewmodel;
+package com.scotia.takehome.viewmodel;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

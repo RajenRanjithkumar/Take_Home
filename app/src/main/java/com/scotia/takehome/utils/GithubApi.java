@@ -13,19 +13,14 @@ public interface GithubApi {
 
 
 
-    // Get user name and avatar
+    // GET request to fetch user name and user avatar
     @GET("{user_name}?")
     Call<UserModel> getUser(
             @Path("user_name") String user_name
     );
 
 
-//    @GET("{user_name}/repos")
-//    Call<List<testModel>> getRepos(
-//            @Path("user_name") String user_name
-//    );
-
-    // Get User Repo List
+    // GET request to fetch a user's repositories
     @GET("{user_name}/repos")
     Call<List<ReposModel>> getRepos(
             @Path("user_name") String user_name);

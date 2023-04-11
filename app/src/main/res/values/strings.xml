@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Take Home</string>
     <string name="enter_a_github_user_id">Enter a github user id</string>
+    <string name="user_not_found">user name not available</string>
+    <string name="addition_information">Addition Information</string>
+    <string name="last_updated">Last updated:</string>
+    <string name="no_of_stars">Number of Stars:</string>
+    <string name="number_of_forks">Number of Forks:</string>
 </resources>

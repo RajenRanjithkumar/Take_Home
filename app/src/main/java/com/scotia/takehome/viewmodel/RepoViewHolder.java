@@ -1,4 +1,4 @@
-package com.scotia.viewmodel;
+package com.scotia.takehome.viewmodel;
 
 import android.view.View;
 import android.widget.TextView;
