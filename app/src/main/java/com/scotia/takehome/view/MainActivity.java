@@ -12,6 +12,8 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,15 +96,14 @@ public class MainActivity extends AppCompatActivity {
                 // Get the username from the user
                 String username = searchUser.getText().toString().trim();
 
+                //to hide the keyboard after button click
+                hideKeyboard();
+
                 // Validate the username
                 ValidateUsername(username);
 
             }
         });
-
-
-
-
 
 
     }
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo nInfo = cm.getActiveNetworkInfo();
         boolean connected = nInfo != null &&  nInfo.isConnected();
 
-
+        //Show a popup when user offline
         if (connected){
 
             internetOfflinePopUp.setVisibility(View.GONE);
@@ -139,6 +140,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void hideKeyboard() {
+
+        // Get the view currently in focus
+        View view = this.getCurrentFocus();
+
+        if (view != null) {
+            //will hide the the keyboard
+            InputMethodManager manager = (InputMethodManager) getSystemService( Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     private void ValidateUsername(String username) {
 
         // username name cannot have just the special characters
@@ -154,10 +167,10 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
 
-            // Will get the User name and Avatar
+            // Will get the User name and Avatar from the Github Api
             GetRetrofitResponse(username);
 
-            // Will get the user's repositories
+            // Will get the user's repositories from the Github Api
             GetRetrofitReposResponse(username);
 
         }
@@ -219,10 +232,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
     private void GetRetrofitReposResponse(String username) {
 
         //send a Get Request to get the user's repository
@@ -264,7 +273,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }

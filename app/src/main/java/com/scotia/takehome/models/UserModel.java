@@ -1,7 +1,6 @@
 package com.scotia.takehome.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+
 
 // User Model Class
 public class UserModel  {
