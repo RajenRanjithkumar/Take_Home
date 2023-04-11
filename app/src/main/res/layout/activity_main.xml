@@ -12,33 +12,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:gravity="center"
         >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/filledTextField"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
-
-            android:hint="Enter a github user id"
+            android:hint="@string/enter_a_github_user_id"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchUserId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                
                 android:background="@android:color/transparent"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/userSearchBt"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+
+
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/filledTextField"
             android:backgroundTint="#C8C8C8"
-            android:textColor="@color/black"
-            android:text="Search" />
+            android:gravity="center"
+            android:text="Search"
+            android:textColor="@color/black" />
 
 
     </RelativeLayout>
