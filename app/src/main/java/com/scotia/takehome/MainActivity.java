@@ -1,9 +1,10 @@
 package com.scotia.takehome;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,11 +15,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 
 
+import com.scotia.viewmodel.RepoAdapter;
 import com.scotia.takehome.models.UserModel;
 import com.scotia.takehome.models.ReposModel;
 import com.scotia.takehome.request.Service;
 
-import com.scotia.takehome.response.ReposResponse;
 import com.scotia.takehome.utils.GithubApi;
 
 import java.util.ArrayList;
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     ImageView userImage;
     TextView userName;
 
+    private RecyclerView repoRecyclerView;
+    private RepoAdapter repoAdapter;
+    private List<ReposModel> repositoryList;
+    private LinearLayoutManager linearLayoutManager;
+
 
 
     @Override
@@ -43,10 +49,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // linking all the layout fields
         searchBt = findViewById(R.id.userSearchBt);
         userName = findViewById(R.id.userId);
         searchUser = findViewById(R.id.searchUserId);
         userImage = findViewById(R.id.userImage);
+
+        repoRecyclerView = findViewById(R.id.reposRV);
+        repoRecyclerView.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+
+        repoRecyclerView.setLayoutManager(linearLayoutManager);
+        repositoryList = new ArrayList<>();
+        repoAdapter = new RepoAdapter(getApplicationContext(), repositoryList);
+        repoRecyclerView.setAdapter(repoAdapter);
+
+
+
 
 
         searchBt.setOnClickListener(new View.OnClickListener() {
@@ -58,9 +77,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Enter a username", Toast.LENGTH_SHORT).show();
                 }else {
 
-                    //Toast.makeText(MainActivity.this, searchUser.getText(), Toast.LENGTH_SHORT).show();
-                    //GetRetrofitResponse(searchUser.getText().toString());
+                    // will get the users information
+                    GetRetrofitResponse(searchUser.getText().toString());
+
+                    // will get the users repositories
                     GetRetrofitReposResponse(searchUser.getText().toString());
+
+
 
 
 
@@ -71,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 
 
@@ -89,21 +115,24 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
 
                     List<ReposModel> reposList = response.body();
+                    repositoryList.clear();
 
                     for(ReposModel repo: reposList){
 
+                        repositoryList.add(repo);
+
                         // handle null
 
-                        if (repo.getDescription().equals("null")){
-                            Log.v("Tag", "Not available");
-                        }else{
-                            Log.v("Tag", repo.getDescription());
-
-                        }
-
-
+//                        if (repo.getDescription().equals("null")){
+//                            Log.v("Tag", "Not available");
+//                        }else{
+//                            Log.v("Tag", repo.getDescription());
+//
+//                        }
 
                     }
+
+                    repoAdapter.notifyDataSetChanged();
 
                     /*
                     for(int i =0; i<=5;i++){
@@ -185,13 +214,16 @@ public class MainActivity extends AppCompatActivity {
                 UserModel user = response.body();
 
                 if(user.getName()!= null){
-                    Toast.makeText(MainActivity.this, "o/p"+user.getName(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "o/p"+user.getName(), Toast.LENGTH_SHORT).show();
                     userName.setText(user.getName());
-                    Glide.with(getApplicationContext()).load(user.getAvatar_url()).into(userImage);
+                    Glide.with(getApplicationContext())
+                            .load(user.getAvatar_url())
+                            .placeholder(R.drawable.github_default)
+                            .into(userImage);
 
                 }else {
 
-                    Toast.makeText(MainActivity.this, "o/p"+user.getName(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "o/p"+user.getName(), Toast.LENGTH_SHORT).show();
                     userName.setText("user name not availabe");
                     Glide.with(getApplicationContext()).load(user.getAvatar_url()).into(userImage);
 
