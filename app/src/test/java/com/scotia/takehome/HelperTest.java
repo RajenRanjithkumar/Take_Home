@@ -50,7 +50,6 @@ public class HelperTest {
 
     }
 
-
     @Test
     public void userName_Integers() {
 

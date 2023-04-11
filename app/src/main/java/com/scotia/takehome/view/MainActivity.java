@@ -6,12 +6,16 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     Button searchBt, refreshBt;
     ImageView userImage;
     TextView userName;
+    Boolean check;
 
 
     private RecyclerView repoRecyclerView;
@@ -82,25 +87,28 @@ public class MainActivity extends AppCompatActivity {
         repoAdapter = new RepoAdapter(getApplicationContext(), repositoryList);
         repoRecyclerView.setAdapter(repoAdapter);
 
-        // Checks the internet connection
-        checkInternetConnection();
-
 
         // On click the search button, data gets fetched from the GitHub Api
         searchBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                checkInternetConnection();
+                // Checks the internet connection
+                check = checkInternetConnection(view);
 
-                // Get the username from the user
-                String username = searchUser.getText().toString().trim();
+                if(check){
 
-                //to hide the keyboard after button click
-                hideKeyboard();
+                    // Get the username from the user
+                    String username = searchUser.getText().toString().trim();
 
-                // Validate the username
-                ValidateUsername(username);
+                    //to hide the keyboard after button click
+                    hideKeyboard();
+
+                    // Validate the username
+                    ValidateUsername(username);
+
+
+                }
 
             }
         });
@@ -109,33 +117,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void checkInternetConnection(){
+    private boolean checkInternetConnection(View view){
 
         ConnectivityManager cm = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cm.getActiveNetworkInfo();
         boolean connected = nInfo != null &&  nInfo.isConnected();
 
-        //Show a popup when user offline
-        if (connected){
+        //Display a custom dialog when user goes offline
+        Dialog dialog = new Dialog(view.getRootView().getContext());
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(true);
+        dialog.setContentView(R.layout.custom_detect_internet);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button refresh = dialog.findViewById(R.id.refresh_Bt);
 
-            internetOfflinePopUp.setVisibility(View.GONE);
-            homeLayout.setVisibility(View.VISIBLE);
+        if (!connected){
 
-        }else {
+            dialog.show();
 
-            internetOfflinePopUp.setVisibility(View.VISIBLE);
-            homeLayout.setVisibility(View.GONE);
-            refreshBt.setOnClickListener(new View.OnClickListener() {
+            refresh.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                     checkInternetConnection();
+                    checkInternetConnection(view);
+                    dialog.dismiss();
 
                 }
             });
 
-        }
+            return false;
 
+
+        }else {
+
+            dialog.dismiss();
+            return true;
+
+        }
 
 
     }
