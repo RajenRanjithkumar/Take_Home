@@ -1,11 +1,7 @@
 package com.scotia.takehome.utils;
-
-
-
-
 import java.util.regex.Pattern;
 
-// Used for testing
+// Helper class for Junit testing
 public class Helper {
 
     public String userName(String username){

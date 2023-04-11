@@ -23,7 +23,8 @@
                 android:id="@+id/repoName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Repo Title"
+                android:text="@string/repo_title"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="20sp"/>
 
@@ -31,7 +32,8 @@
                 android:id="@+id/repoDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Repo description"
+                android:textColor="#303030"
+                android:text="@string/repo_description"
                 android:layout_marginTop="5dp"
                 />
 

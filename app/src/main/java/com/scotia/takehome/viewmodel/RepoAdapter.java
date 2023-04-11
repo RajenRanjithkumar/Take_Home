@@ -20,6 +20,8 @@ import com.scotia.takehome.models.ReposModel;
 
 import java.util.List;
 
+
+//Adapter class for the users repository recycler view
 public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
 
     private Context mContext;
@@ -36,6 +38,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
     @Override
     public RepoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        // view reference to the recycler view item layout
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.repo_item, parent, false);
         return new RepoViewHolder(view);
 
@@ -46,6 +49,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RepoViewHolder holder, int position) {
 
+        //Update UI and handle item click events
         ReposModel repo = reposList.get(position);
 
         if (repo.getName() == null){
@@ -55,8 +59,6 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
             holder.repoName.setText(repo.getName());
 
         }
-
-
 
         if (repo.getDescription() == null){
             holder.repoDescription.setText("Description Not Available");
@@ -68,7 +70,11 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-                //custom dialog
+
+                //Custom dialog to display additional information such as
+                // --Lasted updated
+                // --Number of stars
+                // --NUmber of forks
                 Dialog dialog = new Dialog(view.getRootView().getContext());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
@@ -76,11 +82,11 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 ImageView closeBt =dialog.findViewById(R.id.closeBt);
 
-                TextView lastUpted = dialog.findViewById(R.id.updatedTime);
+                TextView lastUpdated = dialog.findViewById(R.id.updatedTime);
                 TextView starCount = dialog.findViewById(R.id.starsCount);
                 TextView forkCount = dialog.findViewById(R.id.forksCount);
 
-                lastUpted.setText(repo.getUpdated_at());
+                lastUpdated.setText(repo.getUpdated_at());
                 starCount.setText(repo.getStargazers_count().toString());
                 forkCount.setText(repo.getForks().toString());
 
@@ -96,16 +102,8 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
                 dialog.show();
 
 
-
-
             }
         });
-
-
-        //change
-        //((RepoViewHolder)holder).repoName.setText(reposList.get(position).getName());
-
-        //((RepoViewHolder)holder).repoDescription.setText(reposList.get(position).getDescription());
 
     }
 
@@ -114,9 +112,6 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoViewHolder> {
 
         return reposList.size();
     }
-
-
-
 
 
 

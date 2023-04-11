@@ -11,8 +11,6 @@ import retrofit2.http.Path;
 
 public interface GithubApi {
 
-
-
     // GET request to fetch user name and user avatar
     @GET("{user_name}?")
     Call<UserModel> getUser(

@@ -6,4 +6,6 @@
     <string name="last_updated">Last updated:</string>
     <string name="no_of_stars">Number of Stars:</string>
     <string name="number_of_forks">Number of Forks:</string>
+    <string name="repo_title">Repo Title</string>
+    <string name="repo_description">Repo description</string>
 </resources>

@@ -6,8 +6,9 @@ import com.scotia.takehome.utils.Routes;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Service {
 
+// setting up retrofitBuilder to make http calls
+public class Service {
     private static Retrofit.Builder retrofitBuilder =
             new Retrofit.Builder()
                     .baseUrl(Routes.BASE_URL)
