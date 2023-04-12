@@ -16,7 +16,7 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.EditorInfo;
+
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,10 +46,10 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    CardView internetOfflinePopUp;
+
     LinearLayout homeLayout;
     TextInputEditText searchUser;
-    Button searchBt, refreshBt;
+    Button searchBt;
     ImageView userImage;
     TextView userName;
     Boolean check;
@@ -68,10 +68,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // linking all the layout fields
-        internetOfflinePopUp = findViewById(R.id.internetPopup);
+
         homeLayout = findViewById(R.id.homeLinearLayout);
         searchBt = findViewById(R.id.userSearchBt);
-        refreshBt = findViewById(R.id.refreshBt);
         userName = findViewById(R.id.userId);
         searchUser = findViewById(R.id.searchUserId);
         userImage = findViewById(R.id.userImage);
@@ -106,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
                     // Validate the username
                     ValidateUsername(username);
-
 
                 }
 
@@ -274,7 +272,10 @@ public class MainActivity extends AppCompatActivity {
 
                     }else {
 
-                        Toast.makeText(MainActivity.this, "User has no repositories", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+                        //When user has no repositories empty the List
+                        repositoryList.clear();
+                        repoAdapter.notifyDataSetChanged();
                     }
 
                 }else {

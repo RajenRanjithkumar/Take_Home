@@ -6,47 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".view.MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/internetPopup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:backgroundTint="#F1F1F1"
-        app:cardCornerRadius="10dp"
-        android:visibility="gone"
-
-        >
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-            <TextView
-                android:id="@+id/head"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Internet Unavailable"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"
-                android:textSize="20sp"/>
-
-            <Button
-                android:id="@+id/refreshBt"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/head"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textAllCaps="false"
-                android:text="Refresh"
-                android:backgroundTint="#636363"
-                />
-
-        </RelativeLayout>
-
-
-
-    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:id="@+id/homeLinearLayout"
